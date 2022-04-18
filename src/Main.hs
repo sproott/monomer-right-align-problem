@@ -8,6 +8,7 @@ import Data.Maybe
 import Data.Text (Text)
 import Monomer
 import TextShow
+import qualified Data.Text as T
 
 import qualified Monomer.Lens as L
 
@@ -28,7 +29,7 @@ buildUI
   -> WidgetNode AppModel AppEvent
 buildUI wenv model = widgetTree where
   widgetTree = vstack [
-      label "Hello world",
+      label (T.pack $ replicate (model ^. clickCount) '0') `styleBasic` [textRight],
       spacer,
       hstack [
         label $ "Click count: " <> showt (model ^. clickCount),
@@ -55,7 +56,7 @@ main = do
       appWindowTitle "Hello world",
       appWindowIcon "./assets/images/icon.bmp",
       appTheme darkTheme,
-      appFontDef "Regular" "./assets/fonts/Roboto-Regular.ttf",
+      appFontDef "Regular" "./assets/fonts/JetBrainsMono-Regular.ttf",
       appInitEvent AppInit
       ]
     model = AppModel 0
